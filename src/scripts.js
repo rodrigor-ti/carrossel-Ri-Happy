@@ -1,3 +1,5 @@
+let slickInitialized = false;
+
 // Arrays de produtos para cada aba
 const novidades = [
   {
@@ -282,6 +284,67 @@ const diversao_fora = [
   }
 ];
 
-console.log('====================================');
-console.log('JS Funcionando');
-console.log('====================================');
+function initializedSlick() {
+  const slickElement = document.querySelector('.product-carousel')
+
+  $(slickElement).slick({
+    infinite: true,
+    slidesToShow: 4,
+    slidesToScroll: 4,
+    arrows: true
+  });
+
+  slickInitialized = true;
+}
+
+function renderProducts(products) {
+  const productCarousel = document.querySelector('.product-carousel')
+  productCarousel.innerHTML = ''
+
+  products.forEach(product => {
+    const productElement = `
+      <div class="product-card">
+        <img src="${product.imageUrl}" alt="${product.productName}">
+        <h3>${product.productName}</h3>
+        <p class="price">Por ${product.totalPrice}</p>
+        <p class="installments">ou ${product.installments}x de ${product.installmentValue}</p>
+        <p>${product.installments} ${product.installmentValue}</p>
+        <button class="adicionar">Comprar</button>
+        <p class="seller">Vendido por ${product.seller}</p>
+    `;
+
+    productCarousel.innerHTML += productElement
+  })
+}
+
+function handleClickTab(event) {
+  const tabs = document.querySelectorAll('.tab-link')
+  tabs.forEach(tab => tab.classList.remove('active'))
+
+  if(slickInitialized) {
+    $('.product-carousel').slick('unslick');
+  }
+
+  event.target.classList.add('active')
+
+  const category = event.target.dataset.category
+
+  if(category === 'novidades') {
+    renderProducts(novidades)
+  } else if(category === 'mais_vendidos') {
+    renderProducts(mais_vendidos)
+  } else if(category === 'fantasias') {
+    renderProducts(fantasias)
+  } else if(category === 'jogos') {
+    renderProducts(jogos)
+  } else if(category === 'diversao_fora') {
+    renderProducts(diversao_fora)
+  }
+}
+
+document.addEventListener('DOMContentLoaded', function() {
+ renderProducts(novidades);
+
+ const tabs = document.querySelectorAll('.tab-link')
+ tabs.forEach(tab => tab.addEventListener('click', handleClickTab))
+})
