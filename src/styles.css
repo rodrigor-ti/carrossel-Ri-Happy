@@ -143,3 +143,8 @@ body {
   border-radius: 0 0 15px 15px;
   margin-bottom: 0;
 }
+
+.slick-prev:before, .slick-next:before {
+  color: #ccc;
+  font-size: 32px;
+}

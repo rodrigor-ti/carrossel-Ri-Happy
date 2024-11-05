@@ -291,8 +291,7 @@ function initializedSlick() {
     infinite: true,
     slidesToShow: 4,
     slidesToScroll: 4,
-    arrows: true,
-    dots: true,
+    arrows: true
   });
 
   slickInitialized = true;
