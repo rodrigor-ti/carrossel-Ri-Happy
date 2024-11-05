@@ -291,7 +291,8 @@ function initializedSlick() {
     infinite: true,
     slidesToShow: 4,
     slidesToScroll: 4,
-    arrows: true
+    arrows: true,
+    dots: true,
   });
 
   slickInitialized = true;
@@ -315,6 +316,8 @@ function renderProducts(products) {
 
     productCarousel.innerHTML += productElement
   })
+
+  initializedSlick();
 }
 
 function handleClickTab(event) {
@@ -333,6 +336,7 @@ function handleClickTab(event) {
     renderProducts(novidades)
   } else if(category === 'mais_vendidos') {
     renderProducts(mais_vendidos)
+    console.log('mais vendidos')
   } else if(category === 'fantasias') {
     renderProducts(fantasias)
   } else if(category === 'jogos') {
